@@ -37,20 +37,50 @@
   <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyAzcwgZuLA7dO9g4sQhXQVTUgCo0M8m2qM",
-      authDomain: "grocerylist-91956.firebaseapp.com",
-      databaseURL: "https://grocerylist-91956.firebaseio.com",
-      projectId: "grocerylist-91956",
-      storageBucket: "grocerylist-91956.appspot.com",
-      messagingSenderId: "813812426276",
-      appId: "1:813812426276:web:93e5897af12892ff78dab1",
-      measurementId: "G-VZ83BTR72T"
-    }; 
-    // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+  apiKey: "AIzaSyDrsnv-Z9WcP43lCUHMMVJCQsNYVbDfrRw",
+  authDomain: "jayproject-7751f.firebaseapp.com",
+  projectId: "jayproject-7751f",
+  storageBucket: "jayproject-7751f.appspot.com",
+  messagingSenderId: "867999030379",
+  appId: "1:867999030379:web:cb58f9294071c65606252e",
+  measurementId: "G-NYFDJNCSVH"
+};
+   // Initialize Firebase
+   firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
 
+    // Read the data from the datbase and update the list
+    $('li').remove();
+
+    db.collection("shoppinglist").get().then((querySnapshot)=>{
+      console.log(querySnapshot);
+      var newlist ="";
+      querySnapshot.forEach((doc) => {
+        var item = doc.data().item;
+        console.log("loading.... ",item);
+        newlist +="<li class='cool'>"+item+"</li>";
+        // $("#todo").append("<li>"+item+"</li>"); 
+      });
+      // update the list 
+      $('#todo').append(newlist);
+      //make it clickable
+
+    });
+
     // Save the list to database
+    $("#save").click(function(){
+      //testing if the database is connected
+      // clear the database before you save. 
+      $('li').each(function(){
+        var value = $(this).text();
+        console.log("Saving ", value);
+        db.collection("shoppinglist").add(); // complete this
+      });
+
+      //db.collection("shoppinglist").add({item:"apple"});
+
+    });
+
 
 
   </script>
